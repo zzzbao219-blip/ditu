@@ -28,14 +28,16 @@ requirements = python3,kivy,pyjnius,requests
 android.permissions = ACCESS_MOCK_LOCATION,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,FOREGROUND_SERVICE,FOREGROUND_SERVICE_LOCATION,POST_NOTIFICATIONS,INTERNET,ACCESS_NETWORK_STATE
 android.api = 34
 android.minapi = 31
-android.sdk = 34
-android.ndk = 26
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a,armeabi-v7a
 
 # 前台服务：保持后台位置注入持续运行
 # 格式：services = ServiceDisplayName:path/to/service_entry.py
 # p4a 会自动生成 org.example.positionsetting.ServiceMockLocationService Java 类
 services = MockLocationService:app/mock_location_service.py
+
+# p4a 配置
+p4a.branch = develop
+android.accept_sdk_license = True
 
 # 构建配置
 fullscreen = 0
