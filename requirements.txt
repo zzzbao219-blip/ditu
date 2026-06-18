@@ -1,0 +1,11 @@
+# Kivy 框架
+kivy==2.3.0
+
+# Android Java API 桥接（仅 Android 运行时需要）
+pyjnius==1.6.1
+
+# HTTP 请求（高德 Web API）
+requests==2.31.0
+
+# 异步支持
+kivy-garden==0.1.5
