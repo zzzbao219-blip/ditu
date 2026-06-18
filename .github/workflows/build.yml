@@ -40,13 +40,25 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.buildozer
-          key: buildozer-${{ runner.os }}-v2-${{ hashFiles('buildozer.spec') }}
-          restore-keys: buildozer-${{ runner.os }}-v2-
+          key: buildozer-${{ runner.os }}-v3-${{ hashFiles('buildozer.spec') }}
+          restore-keys: buildozer-${{ runner.os }}-v3-
+
+      - name: Debug - show buildozer location
+        run: |
+          which buildozer
+          buildozer version
+          cat buildozer.spec
 
       - name: Build APK
         run: |
           export PATH="$HOME/.local/bin:$PATH"
-          buildozer android debug --verbose 2>&1 | tail -200
+          buildozer -v android debug 2>&1 | tee build.log
+          echo "=== BUILD FINISHED ==="
+          ls -la bin/ || echo "bin/ directory does not exist"
+
+      - name: Show tail of build log on failure
+        if: failure()
+        run: tail -100 build.log
 
       - name: Upload APK
         if: success() || failure()
@@ -54,4 +66,4 @@ jobs:
         with:
           name: positionsetting-debug
           path: bin/*.apk
-          if-no-files-found: ignore
+          if-no-files-found: warn
